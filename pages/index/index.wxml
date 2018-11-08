@@ -1,0 +1,65 @@
+<view class="container">
+  <!--滚动-->
+  <scroll-view scroll-y="true" class="page-body" bindscrolltolower="laodMore">
+    <!-- 轮播图 -->
+    <view class="swiper">
+      <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+        <block wx:for="{{banner_url}}" wx:key="this">
+          <swiper-item>
+            <block wx:if="{{item}}">
+              <image src="{{item}}"></image>
+            </block>
+            <block wx:else>
+              <image src="../../images/default_pic.png"></image>
+            </block>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 导航 -->
+    <view class='nav_top'>
+      <block wx:for="{{navTopItems}}" wx:key="this" > 
+       <view class="nav_top_item {{curNavId==item.id ? 'active_'+colors[index]:''}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchTap">
+          <image src="{{item.icon}}"></image>
+          <text>{{item.title}}</text>
+        </view>
+      </block>
+    </view>
+    <!-- 商品列表 -->
+    <view class='nav_section'>
+      <view wx:if="{{list[curIndex]}}">
+        <block wx:for="{{list[curIndex]}}" wx:key="this">
+          <view class="nav_section_item">
+            <!--images-->
+            <view class="section_images">
+              <block wx:if="{{item.civerpath}}">
+                <image src="{{item.civerpath}}" bindtap="navigateDetail"></image>
+              </block>
+              <block wx:else>
+                <image src="../../images/default_pic.png"></image>
+              </block>
+            </view>
+            <!--说明-->
+            <view class="section_con" bindtap="navigateDetail">
+              <view class="section_con_Sub">
+                <text>{{item.subject}}</text>
+              </view>
+              <view class="section_con_price">
+                <text>{{item.price}}</text>
+              </view>
+              <view class="text_index">{{item.message}}</view>
+            </view>
+            <!--预约-->
+            <view class="section_book" bindtap="bookTap" >
+             <text>预约</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view wx:else>
+        <text>暂无数据</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
